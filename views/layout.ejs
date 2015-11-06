@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Uber authentication</title>
+</head>
+<body>
+  <h1>Uber LOGIN USING PASSPORT</h1>  
+  <div>
+      <% if(user != undefined){%>
+        <h2> Below is the data sent by uber</h2>
+        <pre>
+        <%= user.uber.first_name %>
+        </pre>
+        <a href="/logout">Logout</a>
+      <% } else {%>
+        <a href="/auth/uber">Login with Uber</a>
+      <% }%>
+  </div>
+</body>
+</html>
