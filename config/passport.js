@@ -30,38 +30,38 @@ module.exports = function(passport){
   // ));
 
 
-  passport.use('uber', new UberStrategy({
-    clientID: process.env.UBER_CLIENT_ID,
-    clientSecret: process.env.UBER_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/uber/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function() {
-      User.findOne({uberid: profile.id }, function(err, user) {
-        console.log(profile)
-        if (err) return done(err);
-        if (user) {
-          return done(null, user);
-        } else {
+passport.use('uber', new UberStrategy({
+  clientID: process.env.UBER_CLIENT_ID,
+  clientSecret: process.env.UBER_CLIENT_SECRET,
+  callbackURL: "http://localhost:3000/auth/uber/callback"
+},
+function(accessToken, refreshToken, profile, done) {
+  User.findOne({uberid: profile.id }, function(err, user) {
+    console.log(user)
+    console.log(profile)
+    if (err) return done(err);
+    if (user) {
+      return done(null, user);
+    } else {
 
-          var newUser = new User();
+      var newUser = new User();
 
 
-          newUser.uber.picture               = profile.picture;
-          newUser.uber.uuid                  = profile.uuid;
-          newUser.uber.first_name            = profile.first_name;
-          newUser.uber.last_name             = profile.last_name;
-          newUser.uber.promo_code            = profile.promo_code;
-          newUser.uber.email                 = profile.email;
-          newUser.uber.provider              = profile.provider;
+      newUser.uber.picture               = profile.picture;
+      newUser.uber.uuid                  = profile.uuid;
+      newUser.uber.first_name            = profile.first_name;
+      newUser.uber.last_name             = profile.last_name;
+      newUser.uber.promo_code            = profile.promo_code;
+      newUser.uber.email                 = profile.email;
+      newUser.uber.provider              = profile.provider;
 
-          newUser.save(function(err) {
-            if (err) throw err;
-            return done(null, newUser);
-          });
-        };
+      newUser.save(function(err) {
+        if (err) throw err;
+        return done(null, newUser);
       });
-    });
-  }));
+    };
+  });
+  
+}));
 }
 

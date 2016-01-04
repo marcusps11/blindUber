@@ -10,6 +10,10 @@
         <h2> Below is the data sent by uber</h2>
         <pre>
         <%= user.uber.first_name %>
+        <%= user.uber.last_name %>
+        <%= user.uber.email %>
+        <img src="<%= user.uber.email %>">
+        <%= user.uber.promo_code %>
         </pre>
         <a href="/logout">Logout</a>
       <% } else {%>

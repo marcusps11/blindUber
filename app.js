@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost/uber-authentication-app');
 
 // Middleware
 app.use( cookieParser() );
-// app.use(expressSession({secret: 'mySecretKey'}));
+app.use(expressSession({secret: 'mySecretKey'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));
@@ -51,7 +51,7 @@ app.get('/logout', function(req, res){
 
 // Home page
 app.get('/', function(req, res){
-  console.log(req.user)
+  console.log(req.user);
   res.render('layout', {user: req.user});
 });
 
